@@ -1,0 +1,30 @@
+@import "src/styles/variables";
+
+.dropdown {
+  padding: 0 12px;
+  background-color: $menuBackground;
+
+  .dropdown-trigger {
+
+    button {
+      padding: 0;
+      color: whitesmoke;
+      background-color: $menuBackground !important;
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  .dropdown-menu {
+    padding: 0 12px;
+
+    .dropdown-content {
+      background-color: $menuBackground;
+
+      .dropdown-item {
+        color: whitesmoke;
+        padding: 0;
+      }
+    }
+  }
+}

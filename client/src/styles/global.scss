@@ -1,0 +1,30 @@
+@import "~bulma/bulma";
+@import "src/styles/templates";
+@import "~react-toastify/dist/ReactToastify.min.css";
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  .active {
+    background-color: #292929 !important;
+    color: darkorange !important;
+  }
+
+  .shopping-basket {
+    @extend %shoppingBasketTpl;
+
+    &-mobile {
+      @extend %shoppingBasketTpl;
+
+      span {
+        left: 86px;
+      }
+    }
+  }
+}

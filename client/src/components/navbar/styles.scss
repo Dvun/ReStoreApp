@@ -1,0 +1,73 @@
+@import "src/styles/variables";
+
+.navbar {
+
+  .navbar-brand {
+
+    .logo {
+      background-color: $menuBackground !important;
+    }
+  }
+
+  .navbar-menu {
+    background-color: $menuBackground;
+
+    .navbar-start,
+    .navbar-end {
+      display: flex;
+
+      @media screen and (max-width: 919px) {
+        display: block;
+      }
+
+      .navbar-item {
+        height: 100%;
+        color: whitesmoke;
+        border-radius: 0 !important;
+        transition: background-color, color .4ms ease-in-out;
+
+        &:hover {
+          background-color: #292929;
+          color: whitesmoke;
+        }
+      }
+    }
+  }
+
+  h1 {
+    color: whitesmoke;
+
+    &:hover {
+      background-color: $menuBackground;
+    }
+  }
+}
+
+
+@media only screen and (min-width: 920px) and (max-width: 1023px) {
+  .navbar {
+    display: flex;
+    padding: 0 2rem;
+
+    .navbar-menu {
+      padding: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: none;
+
+      .navbar-start,
+      .navbar-end {
+        height: 100%;
+        color: whitesmoke;
+        align-items: center;
+
+        .navbar-item {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

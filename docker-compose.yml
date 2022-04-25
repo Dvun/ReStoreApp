@@ -1,0 +1,51 @@
+version: '3.9'
+services:
+  database:
+    container_name: postgreSql
+    image: postgres:14-alpine
+    ports:
+      - '5432:5432'
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ReStore_DB
+    extra_hosts:
+      - 'database:127.0.0.1'
+
+  clien:
+    container_name: restore_client
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    depends_on:
+      - server
+      - database
+
+  server:
+    container_name: restore_server
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_GENERATE_ASPNET_CERTIFICATE=true
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./server:/app
+    restart: always
+    working_dir: /app
+    command: dotnet watch run --urls http://+:8080
+    depends_on:
+      - database
+
+volumes:
+  pgdata:
