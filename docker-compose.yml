@@ -1,5 +1,6 @@
 version: '3.9'
 services:
+
   database:
     container_name: postgreSql
     image: postgres:14-alpine
@@ -15,7 +16,7 @@ services:
     extra_hosts:
       - 'database:127.0.0.1'
 
-  clien:
+  client:
     container_name: restore_client
     build:
       context: ./client

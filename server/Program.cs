@@ -1,34 +1,27 @@
-using Microsoft.EntityFrameworkCore;
-using Server;
 using server.Data;
+using server.Middlewares;
+using server.services;
 
-namespace server
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddServiceCollection(builder.Configuration);
+
+
+
+var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
+if (app.Environment.IsDevelopment())
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var host = CreateHostBuilder(args).Build();
-            var scope = host.Services.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
-            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-            try
-            {
-                context.Database.Migrate();
-                DbInitializer.Initialize(context);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Problem with migration data!");
-            }
-            host.Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+    DbInitializer.Initialize(app);
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+
+// app.UseHttpsRedirection();
+
+app.UseAuthorization();
+app.UseCors(opt => opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
+app.MapControllers();
+app.Run();
