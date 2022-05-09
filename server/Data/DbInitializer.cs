@@ -9,7 +9,7 @@ public class DbInitializer
         using (var serviceScope = app.ApplicationServices.CreateScope())
         {
             var context = serviceScope.ServiceProvider.GetService<StoreContext>();
-            
+            if (context == null) return;
             if (context.Products.Any()) return;
 
         var products = new List<Product>

@@ -23,6 +23,6 @@ public class Basket
         var item = BasketItems.FirstOrDefault(item => item.ProductId == productId);
         if (item == null) return;
         item.Quantity -= quantity;
-        if (item.Quantity == 0) BasketItems.Remove(item);
+        if (item.Quantity <= 0) BasketItems.Remove(item);
     }
 }
