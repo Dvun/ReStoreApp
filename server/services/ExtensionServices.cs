@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using server.Data;
+using server.Profiles;
 
 namespace server.services;
 
@@ -15,6 +16,7 @@ public static class ExtensionServices
         {
             opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
         });
+        services.AddAutoMapper(typeof(MappingProfiles));
         services.AddCors();
 
 
