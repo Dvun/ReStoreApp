@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
-using server.DTOs;
-using server.Entities;
+using server.Data.DTOs;
+using server.Data.Entities;
 
 namespace server.Controllers;
 

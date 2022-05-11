@@ -1,4 +1,4 @@
-namespace server.DTOs;
+namespace server.Data.DTOs;
 
 public class BasketDto
 {
