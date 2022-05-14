@@ -3,3 +3,5 @@ WORKDIR /app
 COPY . /app
 EXPOSE 8080
 RUN dotnet tool install --global dotnet-ef && dotnet restore && dotnet build
+ENV PATH="${PATH}:/root/.dotnet/tools"
+CMD ["dotnet", "ef", "database", "update"]

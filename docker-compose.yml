@@ -42,7 +42,7 @@ services:
       - '8080:8080'
     volumes:
       - ./server:/app
-    restart: always
+    restart: unless-stopped
     working_dir: /app
     command: dotnet watch run --urls http://+:8080
     depends_on:
