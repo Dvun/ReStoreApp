@@ -1,6 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Middlewares;
-using server.services;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,11 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 if (app.Environment.IsDevelopment())
 {
+    using (var scope = app.Services.CreateScope())
+    {
+        var dataContext = scope.ServiceProvider.GetRequiredService<StoreContext>();
+        dataContext.Database.Migrate();
+    }
     DbInitializer.Initialize(app);
     app.UseSwagger();
     app.UseSwaggerUI();

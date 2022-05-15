@@ -6,7 +6,7 @@ services:
     image: postgres:14-alpine
     ports:
       - '5432:5432'
-    restart: always
+    restart: unless-stopped
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
@@ -20,12 +20,13 @@ services:
     container_name: restore_client
     build:
       context: ./client
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
+    env_file: ./client/.env.dev
     ports:
       - '3000:3000'
     volumes:
-      - /app/node_modules
       - ./client:/app
+      - /app/node_modules
     depends_on:
       - server
       - database
@@ -34,7 +35,7 @@ services:
     container_name: restore_server
     build:
       context: ./server
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - DOTNET_GENERATE_ASPNET_CERTIFICATE=true

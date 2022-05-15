@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Profiles;
+using server.Services.Basket;
 
-namespace server.services;
+namespace server.Services;
 
 public static class ExtensionServices
 {
@@ -16,7 +17,9 @@ public static class ExtensionServices
         {
             opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
         });
+        services.AddHttpContextAccessor();
         services.AddAutoMapper(typeof(MappingProfiles));
+        services.AddScoped<IBasketService, BasketService>();
         services.AddCors();
 
 
