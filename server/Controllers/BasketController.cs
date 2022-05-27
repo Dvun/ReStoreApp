@@ -16,25 +16,17 @@ public class BasketController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<BasketDto>> GetBasket()
     {
-        var basket = await _basketService.GetBasket();
-        if (basket == null) return NotFound();
-        return basket;
+        return await _basketService.GetBasket();
     }
 
 
-    // [HttpPost]
-    // public async Task<ActionResult> AddItemToBasket(int productId, int quantity)
-    // {
-    //     var basket = await RetrieveBasket() ?? CreateBasket();
-    //     var product = await _context.Products.FindAsync(productId);
-    //     if (product == null) return NotFound();
-    //     basket.AddItem(product, quantity);
-    //     var result = await _context.SaveChangesAsync() > 0;
-    //     if (result) return StatusCode(201);
-    //     return BadRequest(new ProblemDetails(){Title = "Problem saving product to basket!"});
-    // }
-    //
-    //
+    [HttpPost]
+    public async Task AddItemToBasket(int productId, int quantity)
+    {
+        await _basketService.AddItemToBasket(productId, quantity);
+    }
+    
+    
     // [HttpDelete]
     // public async Task<ActionResult> RemoveBasketItem(int productId, int quantity)
     // {

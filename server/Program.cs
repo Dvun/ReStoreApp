@@ -19,6 +19,7 @@ if (app.Environment.IsDevelopment())
         var dataContext = scope.ServiceProvider.GetRequiredService<StoreContext>();
         dataContext.Database.Migrate();
     }
+    
     DbInitializer.Initialize(app);
     app.UseSwagger();
     app.UseSwaggerUI();
